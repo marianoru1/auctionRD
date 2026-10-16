@@ -380,7 +380,7 @@ Cursedness / correlation neglect    & no & no & core \\
 Learning overshoot                  & yes & yes & strong \\
 \hline
 \end{tabular}
-\
+\end{center}
 
 
 
@@ -433,7 +433,8 @@ joy-of-winning motive. Together with the format-invariant intercept $w/(1-\Lambd
 this provides a small set of moments to separate the two motives.
 Section~\ref{sec:framework} presents the framework and discusses dimensionality.
 Section~\ref{sec:pv} and Section~\ref{sec:wallet} analyze the private-value auction
-and the wallet game. Section~\ref{sec:id} discusses identification and revenue.
+and the wallet game in the first-price format; Section~\ref{sec:spa} analyzes the two
+second-price environments. Section~\ref{sec:id} discusses identification and revenue.
 Section~\ref{sec:ext} sketches extensions. An appendix states the two-dimensional
 results for comparison.
 \section{Framework}
@@ -479,6 +480,13 @@ point, gain--loss would partially offset it. All qualitative conclusions below a
 unchanged, with the joy-of-winning effect dampened; we therefore adopt the direct
 specification.
 \end{remark}
+\subsection{Payment rules}
+The payment rule determines whether the bidder's payoff conditional on winning depends
+on his own action. Under a \emph{first-price} rule the winner pays his own bid, so the
+payoff $v-b$ is chosen directly; under a \emph{second-price} rule he pays the rival's
+bid and the price is random conditional on winning. We treat the first-price
+environments in Sections~\ref{sec:pv}--\ref{sec:wallet} and the second-price
+environments in Section~\ref{sec:spa}.
 \section{Private-Value First-Price Auction}
 \label{sec:pv}
 Two symmetric bidders have i.i.d.\ private values $v\sim U[0,1]$. In a symmetric,
@@ -598,20 +606,150 @@ private-value overbidding but not, by itself, common-value overbidding. The latt
 requires the joy-of-winning motive (or a non-reference mechanism such as cursedness
 or bounded rationality).
 \end{remark}
+\section{Second-Price Auctions}
+\label{sec:spa}
+Under a second-price rule the winner pays the rival's bid rather than his own, so the
+payment is random conditional on winning. This \emph{within-dimension price variance}
+is the feature that distinguishes the second-price from the first-price format. We
+analyze the two canonical environments of the preceding sections---the private-value
+auction and the wallet game---under the same single-monetary-dimension preferences.
+\subsection{Independent-Private-Value Second-Price Auction}
+\label{sec:ipvspa}
+Two symmetric bidders have i.i.d.\ private values $v\sim U[0,1]$. In a symmetric,
+strictly increasing equilibrium $\beta$, a bidder who plans a bid that wins with
+probability $P$ (i.e.\ $b=\beta(P)$) wins when the rival's value $Y<P$ and pays the
+rival's bid $\beta(Y)$, with $Y\sim U[0,P]$. His net payoff is therefore
+\begin{equation}
+\pi=v-\beta(Y)\ \text{with probability }P,\quad Y\sim U[0,P];
+\qquad \pi=0\ \text{with probability }1-P,
+\end{equation}
+and---as in Section~\ref{sec:pv}---the reference point is an independent draw from this
+same distribution. Since outcomes and reference are i.i.d.,
+$\mathbb{E}[\mu(\pi-\pi')]=-\Lambda\,\mathbb{E}[(\pi'-\pi)^+]$. Decomposing the positive
+difference into the one-wins/one-loses and both-win events, and using
+$\iint(\beta(y)-\beta(y'))^{+}dy\,dy'=\int_0^P(2y-P)\beta(y)\,dy$ for increasing
+$\beta$, the interim objective is
+\begin{equation}
+U(P;v)=vP-\bar\beta(P)
+-\Lambda\Big[(1-P)\!\int_0^P\!|v-\beta(y)|\,dy+\int_0^P(2y-P)\beta(y)\,dy\Big]+wP,
+\label{eq:spaobj}
+\end{equation}
+where $\bar\beta(P)\equiv\int_0^P\beta(y)\,dy$.
+\begin{proposition}[No loss-aversion distortion in the private-value SPA]
+\label{prop:spa0}
+Let $0<\Lambda<1$ and $w=0$. The unique symmetric, strictly increasing
+personal-equilibrium bidding strategy is
+\begin{equation}
+\boxed{\ \beta^{*}(v)=v\ }.
+\end{equation}
+\end{proposition}
+\begin{proof}
+At $w=0$ the equilibrium does not overbid, so $|v-\beta(y)|=v-\beta(y)$ for $y\le v$.
+Differentiating \eqref{eq:spaobj} at $P=v$, and using
+$\partial_P\int_0^P(2y-P)\beta(y)\,dy=P\beta(P)-\bar\beta(P)$,
+\begin{equation}
+\frac{\partial U}{\partial P}\Big|_{P=v}
+=v-\beta(v)-\Lambda\Big[-\!\int_0^v\!\big(v-\beta(y)\big)dy+(1-v)\big(v-\beta(v)\big)
++v\beta(v)-\bar\beta(v)\Big].
+\end{equation}
+The term in brackets equals $v-2v^{2}+(2v-1)\beta(v)$, so the first-order condition
+becomes
+\begin{equation}
+\big(v-\beta(v)\big)\big(1-\Lambda+2\Lambda v\big)=0 .
+\end{equation}
+Since $1-\Lambda+2\Lambda v\ge 1-\Lambda>0$, the unique solution is $\beta(v)=v$.
+Moreover $U''(v)=-(1-\Lambda+2\Lambda v)<0$ and $\partial_P U<0$ for $P>v$, so $P=v$
+is the global maximizer; truthful bidding is the unique symmetric equilibrium.
+\end{proof}
+\begin{proposition}[Joy of winning in the private-value SPA]
+\label{prop:spa}
+(i) If $\Lambda=0$, the equilibrium is $\beta^{*}(v)=v+w$ exactly. (ii) Let
+$0<\Lambda<1$ and let $w>0$ be small. Then
+\begin{equation}
+\beta^{*}(v)=v+\frac{w}{1+\Lambda}+O(w^{2}),
+\end{equation}
+so bids exceed the risk-neutral benchmark at every $v$, and loss aversion
+\emph{dampens} the joy-of-winning premium (the denominator $1+\Lambda$ exceeds one,
+whereas in the private-value FPA the corresponding denominator $1-\Lambda+\Lambda v$
+is below one).
+\end{proposition}
+\begin{proof}
+(i) For $\Lambda=0$, \eqref{eq:spaobj} reduces to $U(P;v)=vP-\bar\beta(P)+wP$, whose
+first-order condition at $P=v$ is $v-\beta(v)+w=0$, giving $\beta(v)=v+w$.
+
+(ii) The exact first-order condition at the symmetric equilibrium, retaining the kink,
+is
+\begin{equation}
+v-\beta(v)-\Lambda\Big[-\!\int_0^v\!|v-\beta(y)|\,dy+(1-v)\big|\beta(v)-v\big|
++v\beta(v)-\bar\beta(v)\Big]+w=0 .
+\label{eq:spaexactfoc}
+\end{equation}
+Write $\beta(y)=y+w\phi(y)+O(w^{2})$. Since $\beta(v)-v=O(w)$, the region on which
+$|v-\beta(y)|\neq v-\beta(y)$ has width $O(w)$ and contributes only $O(w^{2})$, so
+$\int_0^v|v-\beta(y)|dy=\tfrac{v^{2}}{2}-w\int_0^v\phi(y)\,dy+O(w^{2})$. With
+$v\beta(v)=v^{2}+wv\phi(v)+O(w^{2})$, $\bar\beta(v)=\tfrac{v^{2}}{2}+w\int_0^v\phi+O(w^{2})$
+and $|\beta(v)-v|=w\phi(v)$, the bracket in \eqref{eq:spaexactfoc} equals
+$w\phi(v)+O(w^{2})$. Substituting, \eqref{eq:spaexactfoc} becomes
+$-w\phi(v)-\Lambda w\phi(v)+w+O(w^{2})=0$, i.e.\ $\phi(v)=1/(1+\Lambda)+O(w)$; the
+second-order condition holds for small $w$ by continuity from part (i).
+\end{proof}
+\begin{remark}
+On the interior $v\ge c$ the exact equilibrium is the constant-offset bid
+$\beta^{*}(v)=v+c$, where $c$ solves $\Lambda c^{2}-(1+\Lambda)c+w=0$, i.e.
+$c=\frac{(1+\Lambda)-\sqrt{(1+\Lambda)^{2}-4\Lambda w}}{2\Lambda}=\frac{w}{1+\Lambda}+O(w^{2})$.
+On the boundary layer $v<c=O(w)$ every win is a net loss, so that characterization
+breaks down; we therefore report the global result to leading order in $w$.
+\end{remark}
+\subsection{The Second-Price Wallet Game}
+\label{sec:walletspsa}
+Signals are $X_i\sim U[0,1]$ and the value is $V=X_1+X_2$. The risk-neutral
+second-price (English) equilibrium is $\beta_0(x)=2x$: a winner at price $P$ earns
+$x+\mathbb{E}[Y\mid Y<P]-P$, and bidding $2x$ equates the price to the value expected
+conditional on winning.
+\begin{proposition}[Wallet-game SPA under reference-dependent preferences]
+\label{prop:walletspsa}
+The wallet game is isomorphic to the private-value SPA. If the rival uses
+$\beta(y)=2y+c$, a bidder with signal $x$ who wins at price $\beta(Y)$ earns
+$x+Y-\beta(Y)=x-Y-c$ on $Y\in[0,P]$, which is exactly the private-value objective with
+value $x$ and price $Y+c$. Consequently: (i) at $w=0$, $\beta^{*}(x)=2x$; (ii) at
+$\Lambda=0$, $\beta^{*}(x)=2x+w$; and (iii) for small $w>0$,
+$\beta^{*}(x)=2x+\frac{w}{1+\Lambda}+O(w^{2})$.
+\end{proposition}
+\begin{proof}
+Immediate from the isomorphism and Propositions~\ref{prop:spa0}--\ref{prop:spa}.
+\end{proof}
+\begin{remark}[Interpretation]
+With a single monetary dimension, loss aversion distorts neither second-price format:
+the risk-neutral benchmarks $\beta_0(v)=v$ and $\beta_0(x)=2x$ survive at $w=0$. This is
+the second-price counterpart of the first-price wallet-game result
+(Corollary~\ref{cor:wallet}) and stands in sharp contrast to the private-value FPA,
+where loss aversion alone overbids (Corollary~\ref{cor:pvover}). Overbidding in either
+second-price format therefore requires the joy-of-winning motive, at a rate damped by
+loss aversion.
+\end{remark}
 \section{Identification and Revenue}
 \label{sec:id}
-The single-dimension model yields three testable implications.
+The single-dimension model yields the following testable implications.
 \begin{itemize}
 \item \textbf{Private-value overbidding under pure loss aversion.} By
-Corollary~\ref{cor:pvover}, $\beta^*(v)>\tfrac12 v$ for all $v>0$ even when $w=0$.
-The local slope of the bid function identifies $\Lambda$.
+Corollary~\ref{cor:pvover}, the first-price bid satisfies $\beta^*(v)>\tfrac12 v$ for
+all $v>0$ even when $w=0$. The local slope of the bid function identifies $\Lambda$.
 \item \textbf{Common-value overbidding requires a joy of winning.} By
-Corollary~\ref{cor:wallet}, the wallet-game bid equals $x$ exactly when $w=0$ and
-exceeds $x$ uniformly when $w>0$. Hence any \emph{excess} common-value overbidding
-(beyond the winner's curse) identifies $w>0$.
-\item \textbf{Format-invariant intercept.} $\beta^*(0)=w/(1-\Lambda)$ in both
-formats. A strictly positive low-value bid, replicated across formats, isolates the
-joy-of-winning component, which pure loss aversion cannot generate.
+Corollary~\ref{cor:wallet}, the first-price wallet-game bid equals $x$ exactly when
+$w=0$ and exceeds $x$ uniformly when $w>0$. Hence any \emph{excess} common-value
+overbidding (beyond the winner's curse) identifies $w>0$.
+\item \textbf{No second-price distortion from loss aversion.} By
+Propositions~\ref{prop:spa0} and \ref{prop:walletspsa}, when $w=0$ the second-price
+private-value equilibrium is truthful, $\beta^{*}(v)=v$, and the second-price wallet
+game yields $\beta^{*}(x)=2x$; loss aversion alone distorts neither. Overbidding in
+either second-price format therefore again identifies $w>0$, and the \emph{contrast}
+between a distorted private-value FPA and an undistorted private-value SPA isolates the
+dimensionality of the gain--loss evaluation.
+\item \textbf{Positive low-value bids.} A strictly positive low-value bid that is
+replicated across formats requires $w>0$, which pure loss aversion cannot generate. Its
+\emph{level} is format-specific---$\beta^{*}(0)=w/(1-\Lambda)$ in the FPA and, to
+leading order, $w/(1+\Lambda)$ in the second-price formats---so the \emph{sign}, not
+the level, is the format-invariant identifying moment.
 \end{itemize}
 These implications also discriminate against the two-dimensional model, whose sign
 pattern is different (Appendix~\ref{app:two}).
@@ -624,11 +762,13 @@ identification asymmetry above.
 \section{Extensions}
 \label{sec:ext}
 \paragraph{Second-price auctions.}
-With a second-price rule the payment equals the rival's bid and is random
-conditional on winning, so the money dimension contributes a term involving the
-within-dimension price variance. The joy-of-winning term adds $wP$ as before, so the
-same motive drives overbidding; the risk-neutral truth-telling benchmark
-$\beta_0(x)=v$ generally fails.
+These are analyzed in Section~\ref{sec:spa}. Under a single monetary dimension, loss
+aversion alone leaves the risk-neutral benchmark intact---truthful bidding
+$\beta_0(v)=v$ in the private-value case and $\beta_0(x)=2x$ in the wallet game---while
+the joy-of-winning bonus produces overbidding at the damped rate $w/(1+\Lambda)$. For
+general signal distributions the price $\beta(Y)$ enters the gain--loss integral and
+the equilibrium condition becomes an equation in $\beta$ and $\bar\beta$ rather than a
+closed form.
 \paragraph{General signal distributions and $n$ bidders.}
 For $X_i\sim F$ on $[0,1]$ and $V=\alpha(X_1+X_2)$, the problem is homogeneous in
 $(\alpha,b)$ and the equilibrium scales by $\alpha$. With $n$ bidders and
@@ -663,12 +803,23 @@ global overbidding requires $w\ge3\Lambda/14$.
 \end{equation}
 With $w=0$, the equilibrium \emph{underbids} uniformly; global overbidding requires
 $w\ge\Lambda/2$.
+\item \emph{Private-value SPA:} against a truthful rival, a bidder with value $v$ who
+chooses win probability $P$ obtains
+$U(P;v)=vP-\tfrac{P^{2}}{2}-\Lambda P(1-P)v-\Lambda\big(\tfrac{P^{2}}{2}-\tfrac{P^{3}}{3}\big)+wP$,
+so $U'(v)=-\Lambda v(2-3v)+w$. At $w=0$ the equilibrium \emph{underbids} for $v<2/3$
+and overbids for $v>2/3$; global overbidding requires $w\ge\Lambda/3$.
+\item \emph{Wallet SPA:} against the risk-neutral benchmark $\beta_0(x)=2x$,
+$U'(x)=-\Lambda x(4-5x)+w$, so at $w=0$ the equilibrium \emph{underbids} for $x<4/5$
+and overbids for $x>4/5$; global overbidding requires $w\ge4\Lambda/5$.
 \end{itemize}
 The denominators ($1+\Lambda(1-v)$, $1+\Lambda(1-x)$) differ from the single-dimension
 denominators ($1-\Lambda+\Lambda v$, $1-\Lambda+\Lambda x$), and the sign of the
-pure-loss-aversion effect reverses. The two specifications can thus be distinguished
-empirically by the behavior of bids at low valuations: single-dimension predicts
-overbidding near $v=0$, two-dimension predicts underbidding.
+pure-loss-aversion effect reverses. In the second-price formats the two-dimensional
+model likewise produces a mixed sign pattern at $w=0$ rather than the undistorted
+single-dimension benchmarks $\beta^{*}(v)=v$ and $\beta^{*}(x)=2x$. The two
+specifications can thus be distinguished empirically by the behavior of bids at low
+valuations: single-dimension predicts overbidding near $v=0$, two-dimension predicts
+underbidding.
 \begin{thebibliography}{99}
 \bibitem[Banerji and Gupta(2014)]{banerji2014}
 Banerji, A., and N. Gupta (2014): ``Detection, Identification, and Estimation of
