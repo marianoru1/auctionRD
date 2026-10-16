@@ -1,0 +1,729 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{natbib}
+\usepackage{geometry}
+\geometry{margin=1in}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\title{\textbf{Joy of Winning and Loss Aversion in Induced-Value Auctions:\\
+A One-Parameter Model of Overbidding in Private and Common Value Settings}}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+\noindent
+Laboratory subjects overbid relative to the risk-neutral Bayesian--Nash benchmark
+in private- and common-value auctions. Expectations-based reference dependence of
+the K\H{o}szegi--Rabin type is often proposed as an explanation, but its canonical
+sealed-bid formulation separates a \emph{good} dimension from a \emph{money}
+dimension. In induced-value experiments the object's worth is itself a monetary
+redemption value, so the two dimensions collapse. We therefore study
+K\H{o}szegi--Rabin preferences with a \emph{single monetary dimension} and a
+self-consistent reference point, and add one reference-independent
+parameter---a joy-of-winning bonus $w\ge0$ received upon winning. The model nests
+pure loss aversion at $w=0$ and yields closed-form equilibria. In the private-value
+first-price auction, loss aversion alone already generates overbidding for every
+valuation (a first-order risk-aversion channel), at a rate increasing in the
+loss-aversion index $\Lambda$; the joy-of-winning bonus amplifies it and produces a
+strictly positive bid at a zero valuation, $w/(1-\Lambda)$. In the first-price
+wallet game, loss aversion alone has \emph{no} effect on the equilibrium bid
+($\beta^*(x)=x$ at $w=0$), while any $w>0$ yields overbidding
+$\beta^*(x)-x=w/(1-\Lambda+\Lambda x)$. The contrast is sharp and testable: the
+presence of common-value overbidding \emph{beyond} the winner's curse identifies a
+joy-of-winning motive, whereas private-value overbidding is consistent with pure
+loss aversion. The framework provides a tractable baseline for structural
+estimation and richer behavioral auction models.
+\end{abstract}
+
+
+\section{Core Framework: K\H{o}szegi \& Rabin (2006)}
+
+\subsection{Key Innovation and Mathematical Setup}
+The reference point is determined endogenously by the agent's \textbf{recent rational expectations} (probabilistic beliefs) rather than an exogenous status quo. Evaluations occur dimension-by-dimension across $K$ separable consumption domains.
+
+For consumption bundle $c = (c_1, \dots, c_K)$ and reference bundle $r = (r_1, \dots, r_K)$:
+\begin{equation}
+u(c \mid r) = \sum_{k=1}^K m_k(c_k) + \sum_{k=1}^K \mu\big(m_k(c_k) - m_k(r_k)\big),
+\end{equation}
+where $m_k(\cdot)$ denotes intrinsic consumption utility, and $\mu(\cdot)$ is the piecewise-linear gain-loss utility:
+\begin{equation}
+\mu(x) = \begin{cases} \eta x & \text{if } x \ge 0, \\ \eta \lambda x & \text{if } x < 0, \end{cases} \qquad (\lambda > 1, \; \eta > 0).
+\end{equation}
+When outcomes and reference points are distributions $F$ and $G$:
+\begin{equation}
+U(F \mid G) = \iint u(c \mid r) \, dG(r) \, dF(c).
+\end{equation}
+
+\subsection{Solution Concepts}
+\begin{enumerate}
+    \item \textbf{Personal Equilibrium (PE):} An action plan $d$ is credible if, given that the agent expected to choose $d$, following through is optimal:
+    \begin{equation}
+    d \in \arg\max_{d'} U\big(F(d') \mid F(d)\big).
+    \end{equation}
+    \item \textbf{Preferred Personal Equilibrium (PPE):} When multiple actions qualify as PEs, the agent plans the one maximizing ex-ante expected utility:
+    \begin{equation}
+    d^* = \arg\max_{d \in \text{PE}} U\big(F(d) \mid F(d)\big).
+    \end{equation}
+\end{enumerate}
+
+\section{Benchmark: The Shoe Shopping Decision}
+
+A consumer decides whether to purchase an item with value $v$ at fixed price $p$. Dimensions: Item ($k=1$) and Money ($k=2$). Set $\eta = 1$, $\lambda > 1$.
+
+\subsection{Equilibrium Analysis}
+\begin{itemize}
+    \item \textbf{Case 1: Expecting to Buy ($r = (1, -p)$):}
+    \begin{align*}
+        U(\text{Buy} \mid \text{Expect Buy}) &= v - p, \\
+        U(\text{Don't Buy} \mid \text{Expect Buy}) &= -\lambda v + p.
+    \end{align*}
+    Buying is a PE iff:
+    \begin{equation}
+    v - p \ge -\lambda v + p \iff p \le \frac{1 + \lambda}{2}v.
+    \end{equation}
+    The consumer pays above $v$ to avoid the attachment loss of leaving empty-handed.
+
+    \item \textbf{Case 2: Expecting Not to Buy ($r = (0, 0)$):}
+    \begin{align*}
+        U(\text{Don't Buy} \mid \text{Expect Not}) &= 0, \\
+        U(\text{Buy} \mid \text{Expect Not}) &= 2v - (1 + \lambda)p.
+    \end{align*}
+    Not buying is a PE iff:
+    \begin{equation}
+    0 \ge 2v - (1 + \lambda)p \iff p \ge \frac{2}{1 + \lambda}v.
+    \end{equation}
+\end{itemize}
+
+\subsection{Equilibrium Regimes}
+\begin{itemize}
+    \item $p > \frac{1+\lambda}{2}v$: Unique PE is \emph{Don't Buy}.
+    \item $p < \frac{2}{1+\lambda}v$: Unique PE is \emph{Buy}.
+    \item $\frac{2}{1+\lambda}v \le p \le \frac{1+\lambda}{2}v$: Multiple equilibria exist. Evaluating ex-ante payoffs selects \textbf{Buy} as the unique PPE iff $p \le v$.
+\end{itemize}
+
+\section{Private Value Auction Toy Model}
+
+\subsection{Environment}
+Two symmetric bidders $i \in \{1, 2\}$ participate in a First-Price Auction (FPA). Valuations are i.i.d.\ $v_i \sim U[0, 1]$. Dimensions are good ($k=1$) and money ($k=2$). Let $\Lambda \equiv \eta(\lambda - 1) > 0$.
+
+\subsection{Payoff Derivation under PPE}
+With planned bid $b$ yielding winning probability $P(b)$:
+\begin{align*}
+u(c_W \mid c_W) &= v - b \quad (\text{prob } P^2), \\
+u(c_L \mid c_L) &= 0 \quad (\text{prob } (1-P)^2), \\
+u(c_W \mid c_L) &= (v - b) + \eta v - \eta \lambda b \quad (\text{prob } P(1-P)), \\
+u(c_L \mid c_W) &= -\eta \lambda v + \eta b \quad (\text{prob } (1-P)P).
+\end{align*}
+Aggregating yields the objective function:
+\begin{equation}
+U(b; v) = \underbrace{P(b)(v - b)}_{\text{Standard Payoff}} - \underbrace{\Lambda P(b)\big(1 - P(b)\big)(v + b)}_{\text{Loss-Aversion Penalty}}.
+\end{equation}
+
+\subsection{Equilibrium Strategy}
+\begin{proposition}
+In the unique symmetric strictly increasing PPE equilibrium, the bidding strategy is:
+\begin{equation}
+\beta^*(v) = \frac{\frac{1 - \Lambda}{2}v + \frac{2\Lambda}{3}v^2}{1 + \Lambda(1 - v)}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Substituting $P(b) = \beta^{-1}(b)$, the FOC at $b = \beta(v)$ yields the linear ODE:
+\begin{equation}
+\frac{d}{dv}\Big[\beta(v) \cdot v\big(1 + \Lambda(1 - v)\big)\Big] = (1 - \Lambda)v + 2\Lambda v^2.
+\end{equation}
+Integrating from $0$ to $v$ with boundary condition $\beta(0) = 0$ gives the result.
+\end{proof}
+
+\subsection{Properties}
+\begin{itemize}
+    \item \textbf{Risk-Neutral Benchmark ($\Lambda = 0$):} $\beta^*(v) = \frac{v}{2}$.
+    \item \textbf{High Valuations ($v \to 1$):} $\beta^*(1) = \frac{1}{2} + \frac{\Lambda}{6} > \frac{1}{2}$. Fear of item attachment loss induces \textbf{overbidding}.
+    \item \textbf{Low Valuations ($v \to 0$):} $\beta^*(v) \approx \frac{1-\Lambda}{2(1+\Lambda)}v < \frac{v}{2}$ (for $\Lambda < 1$). Fear of monetary expenditure induces \textbf{underbidding}.
+    \item \textbf{Second-Price Auction (SPA) Contrast:} SPA introduces uncertain payments conditional on winning. Following Lange and Ratan (2010), truth-telling ($b=v$) fails due to within-dimension price variance.
+\end{itemize}
+
+\section{Extension: The Wallet Game (Common Value Auctions)}
+
+\subsection{Baseline Environment}
+Two bidders receive private signals $X_i \sim F[0, \bar{x}]$ i.i.d. The common value is $V = X_1 + X_2$. Bidders compete in an English / Second-Price auction where winning payoff at price $P$ is $\pi_i = X_1 + X_2 - P$. Standard symmetric BNE without loss aversion is $b(X_i) = 2X_i$.
+
+\subsection{Incorporating Reference-Dependent Preferences}
+\begin{enumerate}
+    \item \textbf{Net-Surplus Reference Point ($r = 0$):}
+    \begin{equation}
+    u(\pi) = \begin{cases} \pi & \text{if } \pi \ge 0, \\ \lambda \pi & \text{if } \pi < 0 \end{cases} \qquad (\lambda > 1).
+    \end{equation}
+    Losses occur when $X_1 + X_2 < P$ (the winner's curse realization). The penalty slope $\lambda > 1$ amplifies downside risk conditional on winning, depressing equilibrium bids relative to the risk-neutral benchmark.
+    
+    \item \textbf{Expectations-Based Multi-Dimensional Formulation:}
+    \begin{equation}
+    u(V, P \mid r_v, r_p) = V - P + \mu_v(V - r_v) + \mu_p(-P - (-r_p)),
+    \end{equation}
+    where $(r_v, r_p)$ is the rational-expectation joint distribution of value and price induced by symmetric equilibrium strategies.
+
+
+\end{enumerate}
+
+\section{Extension: The First-Price Wallet Game with Endogenous Reference Dependence}
+\label{sec:wallet}
+\subsection{Environment}
+Two symmetric bidders $i\in\{1,2\}$ compete in a sealed-bid, first-price auction.
+Signals are private and i.i.d.,
+\begin{equation}
+X_i \sim U[0,1], \qquad X_1 \perp X_2,
+\end{equation}
+and the object has a \emph{common} value
+\begin{equation}
+V = X_1 + X_2 \in [0,2].
+\end{equation}
+A bidder who observes $x$, bids $b$, and wins obtains $V-b$; a loser obtains $0$.
+As in Section~3, consumption has two separable dimensions: the \emph{good} ($k=1$) and \emph{money} ($k=2$), with gain--loss function $\mu(\cdot)$ and $\Lambda \equiv \eta(\lambda-1)>0$.
+\subsection{Risk-Neutral Benchmark}
+Suppose the opponent uses the strictly increasing strategy $\beta_0(\cdot)$. A bidder with signal $x$ who bids $b$ wins with probability $B=b^{-1}(b)$ and, conditional on winning, the opponent's signal is $Y\sim U[0,B]$. Expected profit is
+\begin{equation}
+\int_0^{B}\!\big(x+y-b\big)\,dy = B\Big(x+\tfrac{B}{2}-b\Big).
+\end{equation}
+The first-order condition at $B=x$ gives $2x-\beta_0(x)-x\beta_0'(x)=0$, i.e.\ $\frac{d}{dx}[x\beta_0(x)]=2x$. With $\beta_0(0)=0$,
+\begin{equation}
+\boxed{\ \beta_0(x)=x\ } \qquad \text{(first-price wallet game, risk neutral).}
+\end{equation}
+\subsection{Reference Point and Utility}
+We retain the convention of Section~3: the reference point is the consumption
+distribution generated by the agent's own planned bid (self-consistent / PPE).
+A bidder with signal $x$ who plans a bid $b=\beta(B)$ (which wins with probability $B$) faces
+\begin{equation}
+\text{Win (prob.\ $B$): good}=x+Y,\ \text{money}=-b; \qquad
+\text{Lose (prob.\ $1-B$): good}=0,\ \text{money}=0,
+\end{equation}
+where $Y\sim U[0,B]$ conditional on winning; the reference is an independent draw from the same distribution. Utility is
+\begin{equation}
+U = \mathbb{E}\big[m_1+m_2\big] + \mathbb{E}\big[\mu(\Delta_1)\big] + \mathbb{E}\big[\mu(\Delta_2)\big].
+\end{equation}
+\paragraph{Standard term.} $\mathbb{E}[m_1+m_2]=B\big(x+\tfrac{B}{2}-b\big)$.
+\paragraph{Money dimension.} The money outcome is $-b$ with probability $B$ and $0$ otherwise. Comparing against an i.i.d.\ reference,
+\begin{equation}
+\mathbb{E}[\mu(\Delta_{\text{money}})]
+= \eta\,b\,B(1-B) + \eta\lambda(-b)B(1-B)
+= -\Lambda\,B(1-B)\,b .
+\end{equation}
+\paragraph{Good dimension.} Let $G$ denote the realized good (value) and $G'$ its reference copy. Since $G\stackrel{d}{=}G'$,
+\begin{equation}
+\mathbb{E}[\mu(G-G')] = -\eta(\lambda-1)\,\mathbb{E}[(G-G')^{+}] = -\Lambda\,\mathbb{E}[(G-G')^{+}].
+\end{equation}
+The good equals $0$ with probability $1-B$ and $x+Y$ ($Y\sim U[0,B]$) with probability $B$. Decomposing,
+\begin{equation}
+\mathbb{E}[(G-G')^{+}]
+= \underbrace{B(1-B)\big(x+\tfrac{B}{2}\big)}_{\text{win vs.\ ref.\ lose}}
++ \underbrace{B^{2}\,\mathbb{E}[(Y-Y')^{+}]}_{\text{both win}}
+= B(1-B)\big(x+\tfrac{B}{2}\big) + \frac{B^{3}}{6},
+\end{equation}
+using $\mathbb{E}[(Y-Y')^{+}]=\tfrac{B}{6}$ for $Y,Y'\sim U[0,B]$ i.i.d.
+\paragraph{Aggregate objective.}
+\begin{equation}
+\boxed{\;
+U(B;x)=B\Big(x+\tfrac{B}{2}-b\Big)
+-\Lambda\,B(1-B)\,b
+-\Lambda\Big[\,B(1-B)\big(x+\tfrac{B}{2}\big)+\tfrac{B^{3}}{6}\,\Big]
+\;}
+\end{equation}
+The last term is the \emph{value-dispersion penalty}: loss aversion over the
+uncertainty in the common value \emph{among winners}. It is absent in the
+private-value model, where $V=v$ is known.
+\subsection{Equilibrium}
+\begin{proposition}[First-price wallet game under KR preferences]
+There is a unique symmetric, strictly increasing PPE equilibrium
+\begin{equation}
+\boxed{\ \beta^{*}(x)=\frac{(1-\Lambda)x+\Lambda x^{2}}{1+\Lambda(1-x)}\ }.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Substitute $b=\beta(B)$ into $U(B;x)$ and impose the first-order condition
+$\partial U/\partial B = 0$ at $B=x$. One obtains the linear ODE
+\begin{equation}
+x\big[1+\Lambda(1-x)\big]\,\beta'(x)
++\big[1+\Lambda(1-2x)\big]\,\beta(x)
+= 2x(1-\Lambda)+3\Lambda x^{2}.
+\end{equation}
+The left-hand side is a total derivative:
+\begin{equation}
+\frac{d}{dx}\Big[\,\beta(x)\,x\big(1+\Lambda(1-x)\big)\Big]
+= 2x(1-\Lambda)+3\Lambda x^{2}.
+\end{equation}
+Integrating from $0$ with the boundary condition $\beta(0)=0$,
+\begin{equation}
+\beta(x)\,x\big(1+\Lambda(1-x)\big)=(1-\Lambda)x^{2}+\Lambda x^{3},
+\end{equation}
+which rearranges to the stated expression.
+\end{proof}
+\subsection{Properties}
+\begin{itemize}
+\item \textbf{Risk-neutral benchmark} $(\Lambda=0)$: $\beta^{*}(x)=x$, recovering $\beta_0$.
+\item \textbf{Uniform underbidding.} For all $x\in(0,1)$,
+\begin{equation}
+\beta^{*}(x)-x=\frac{2\Lambda\,x(x-1)}{1+\Lambda(1-x)}<0,
+\end{equation}
+so loss aversion \emph{exacerbates the winner's curse}: bids are shaded below the risk-neutral level everywhere.
+\item \textbf{Comparative statics.} Writing $\beta^{*}(x)=x\,\dfrac{1-\Lambda(1-x)}{1+\Lambda(1-x)}$, we have
+\begin{equation}
+\frac{\partial \beta^{*}(x)}{\partial \Lambda}<0.
+\end{equation}
+\item \textbf{Boundaries.} $\beta^{*}(0)=0$ and $\beta^{*}(1)=1$. Unlike the private-value model (where $\beta^{*}(1)=\tfrac12+\tfrac{\Lambda}{6}>\tfrac12$), there is \emph{no} top-end overbidding.
+\item \textbf{Private-value limit.} If $V$ is known, the within-winner dispersion term $B^{3}/6$ vanishes and the problem reduces to the structure of Section~3.
+\item \textbf{Source of the distortion.} The distortion is driven entirely by the \emph{multi-dimensional} (good vs.\ money) separation. Under a single, net-surplus reference (below) bidding is undistorted.
+\end{itemize}
+\subsection{Extensions}
+\paragraph{Net-surplus reference (single dimension).}
+If preferences are defined over net surplus $\pi=V-b$ with a self-consistent reference,
+\begin{equation}
+U(B;x)=\Big(x+\tfrac{B}{2}-b\Big)B\big[1-\Lambda(1-B)\big]-\tfrac{\Lambda B^{3}}{6}.
+\end{equation}
+The first-order condition again reduces to a total derivative and yields
+\begin{equation}
+\beta^{*}(x)=x,
+\end{equation}
+so one-dimensional reference dependence does \emph{not} distort the first-price wallet game. The entire effect in Proposition~1 is therefore attributable to the dimensional decomposition of the common value.
+\paragraph{General signal distribution.}
+Let $X_i\sim F$ (density $f$) on $[0,1]$, and set $P=F(B)$, $I(B)=\int_0^B y\,f(y)\,dy$, and $D(B)=\mathbb{E}\big[(Y-Y')^{+}\mid Y,Y'\le B\big]$. Then
+\begin{equation}
+U(B;x)=P\!\left(x+\tfrac{I(B)}{P}-b\right)
+-\Lambda P(1-P)\,b
+-\Lambda\Big[(1-P)\big(xP+I(B)\big)+P^{2}D(B)\Big],
+\end{equation}
+and the equilibrium function solves the ODE obtained from $\partial U/\partial B=0$ at $B=x$. For $F=U[0,1]$ ($P=B$, $I(B)=\tfrac{B^{2}}{2}$, $D(B)=\tfrac{B}{6}$) this is Proposition~1.
+\paragraph{Scaling and $n$ bidders.}
+For $V=\alpha(X_1+X_2)$ the problem is homogeneous in $(\alpha,b)$ and
+\begin{equation}
+\beta^{*}(x)=\alpha\,\frac{(1-\Lambda)x+\Lambda x^{2}}{1+\Lambda(1-x)}.
+\end{equation}
+With $n$ bidders and $V=\sum_{i=1}^{n}X_i$, the win probability becomes $B^{\,n-1}$ and the dispersion term scales as $B^{\,n-1}\!\big(1-B^{\,n-1}\big)$ and $B^{\,2(n-1)}\mathbb{E}[(Y-Y')^{+}]$; the resulting ODE is solved by the same integrating-factor method.
+\paragraph{Second-price / English wallet game (sketch).}
+Here the payment equals the highest rival bid, $b(Y)$, and is random conditional on winning. The money dimension then contributes a term
+\begin{equation}
+-\Lambda\Big[\,B(1-B)\,\mathbb{E}\,b(Y)+B^{2}\,\mathbb{E}\big[(b(Y')-b(Y))^{+}\big]\Big],
+\qquad Y,Y'\sim U[0,B],
+\end{equation}
+which contains $\beta$ inside the gain--loss integral. The equilibrium condition is therefore an integro-differential equation, and the risk-neutral truth-revealing benchmark $\beta_0(x)=2x$ fails---the exact analogue of the Lange--Ratan (2010) ``within-dimension price variance'' result for second-price auctions.
+
+
+
+\section{Alternative Explanations for Overbidding}
+\label{sec:overbidding}
+Laboratory subjects overbid relative to the risk-neutral Bayesian--Nash benchmark
+in both private-value (PV) and common-value (CV) auctions, and in both first-price
+(FPA) and second-price (SPA) formats. In PV-SPA truthful bidding is a dominant
+strategy, so overbidding there is especially revealing. Reference-dependent
+preferences of the K\H{o}szegi--Rabin type provide only a setting-dependent and
+directionally ambiguous account (approximately bidding up in high-value PV-FPA,
+but down in the first-price wallet game); the literature offers several
+complementary explanations.
+\paragraph{1. Risk preferences and nonlinear probability weighting.}
+\emph{Risk aversion} raises bids in PV-FPA \cite{cox1982,coxSmithWalker1988} but is
+irrelevant in PV-SPA (truth-telling remains dominant). \emph{Probability
+weighting} (overweighting the chance of winning, underweighting payment) inflates
+bids in all formats \cite{kahnemanTversky1979}; for auction-specific evidence on
+misperceived winning probabilities see \cite{armantierTreich2006}. Risk-seeking or
+gambling preferences can likewise raise bids.
+\paragraph{2. Non-monetary utility of winning.}
+A ``joy of winning'' or consumption value attached to acquiring the object raises
+the effective valuation in PV-FPA, PV-SPA, and CV \cite{delgado2008}. Related
+mechanisms are competitive arousal (``auction fever'') \cite{kuMalhotraMurnighan2005},
+escalation of commitment \cite{rosato2023}, and spiteful/competitive bidding that
+values making rivals lose \cite{morgan2003}.
+\paragraph{3. Anticipated regret.}
+\emph{Loser regret}---regret from having bid too little and lost---shifts optimal
+bids upward in FPA and especially SPA \cite{engelbrechtWiggans1989,filizOzbay2007}.
+This differs from reference dependence: it compares the chosen action to a
+counterfactual, not consumption to an expectations-based reference lottery.
+Winner regret can partially offset, but empirically loser regret dominates.
+\paragraph{4. Bounded rationality and noisy choice.}
+\emph{Quantal response equilibrium} with a flat payoff surface generates
+systematic, not zero-mean, overbidding in PV-FPA \cite{goeree2002}.
+\emph{Level-$k$/cognitive-hierarchy} reasoning---level-1 agents best-responding to a
+naive uniform belief---explains SPA overbidding and part of CV overbidding
+\cite{crawfordIriberri2007}. \emph{Learning-direction theory} predicts adjustment
+in the profitable direction with systematic overshooting
+\cite{seltenBuchta1999}. A sizable share of SPA overbidding appears to be plain
+miscalculation, correlated with experience and payoffs \cite{cooperFang2008}.
+\paragraph{5. Common-value-specific mechanisms.}
+Beyond the classic failure to condition on winning, \emph{cursedness / cursed
+equilibrium} formalizes best-responding to the marginal (rather than conditional)
+distribution of rivals' signals \cite{eysterRabin2005,kagelLevin1986}.
+\emph{Correlation neglect}---failing to account for the correlation between signals
+and the event of winning---amplifies the curse \cite{eysterWeizsacker2011}.
+Anchoring on one's own signal, and overconfidence in signal precision, further
+inflate CV bids.
+\paragraph{6. Design and methodological artifacts.}
+\emph{Flat payoff surfaces} make over- and underbidding nearly cost-equivalent, so
+right-skewed errors or reference normalization surface as average overbidding.
+Real-monetary incentives, experience, and cash effects reduce but rarely eliminate
+overbidding.
+\paragraph{Summary.}
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Explanation & PV-FPA & PV-SPA & CV \\
+\hline
+Risk aversion                       & yes & no & weak \\
+Probability weighting               & yes & yes & yes \\
+Joy of winning                      & yes & yes & yes \\
+Competitive arousal / spite         & yes & yes & yes \\
+Anticipated (loser) regret          & yes & strong & yes \\
+QRE / noise                         & strong & yes & yes \\
+Level-$k$                           & yes & strong & yes \\
+Cursedness / correlation neglect    & no & no & core \\
+Learning overshoot                  & yes & yes & strong \\
+\hline
+\end{tabular}
+\
+
+
+
+
+
+
+\section{Introduction}
+A robust experimental regularity is that bidders bid above the risk-neutral
+Bayesian--Nash benchmark across a wide range of auction environments: first- and
+second-price private-value auctions \citep{cox1982,coxSmithWalker1988,goeree2002,
+crawfordIriberri2007}, and first- and second-price common-value auctions
+\citep{kagelLevin1986,eysterRabin2005,crawfordIriberri2007}. Explanations include
+risk aversion \citep{cox1982,coxSmithWalker1988}, anticipated regret
+\citep{engelbrechtWiggans1989,filizOzbay2007}, quantal response and level-$k$
+reasoning \citep{goeree2002,crawfordIriberri2007}, cursedness \citep{eysterRabin2005},
+and a non-monetary utility of winning \citep{delgado2008}.
+Expectations-based reference dependence \citep{koszegiRabin2006,koszegiRabin2007},
+as applied to sealed-bid auctions by \citet{langeRatan2010}, is a leading candidate.
+Its canonical auction formulation, however, is \emph{multi-dimensional}: the good
+and money are treated as separate consumption dimensions, which is what generates
+the ``attachment'' to the object and the resulting high-value overbidding. This is a
+substantial assumption in induced-value laboratory auctions, where the object being
+sold is a token whose entire value is a monetary redemption value. There, the good
+and money dimensions are economically the same, and it is arguably not legitimate to
+evaluate gain--loss separately on each.
+This paper takes the induced-value setting seriously and restricts attention to a
+\emph{single monetary dimension}, with preferences defined over the net monetary
+payoff and a self-consistent (personal-equilibrium) reference point. In a single
+dimension, K\H{o}szegi--Rabin preferences reduce to \emph{first-order risk aversion}
+\citep{koszegiRabin2007}: the kink in the gain--loss function makes agents averse to
+mean-preserving spreads in a way that ordinary expected-utility risk aversion is
+not. This channel has sharply different implications from the two-dimensional
+model, so the choice of dimensionality is not innocuous.
+To this baseline we add a single reference-independent parameter: a direct utility
+bonus $w\ge0$ obtained upon winning, the ``joy of winning'' \citep{delgado2008}.
+Because the bonus is direct rather than a change in the good's intrinsic value, it
+is not itself subject to gain--loss comparison and is well defined whether or not
+the good is a separate dimension. The model nests pure loss aversion at $w=0$ and
+admits closed-form equilibria in the two canonical first-price settings.
+Our results are as follows. In the private-value first-price auction, loss aversion
+alone generates overbidding for \emph{every} valuation; the joy-of-winning bonus
+amplifies the overbidding and yields a positive bid at a zero valuation, which pure
+loss aversion cannot. In the first-price wallet game of \citet{klemperer1998}, loss
+aversion alone has \emph{no} effect: the equilibrium coincides with the risk-neutral
+benchmark $\beta_0(x)=x$. Any strictly positive joy-of-winning bonus, however,
+produces uniform overbidding. This delivers a clean, testable asymmetry:
+\emph{private-value} overbidding is consistent with pure loss aversion, while
+\emph{common-value} overbidding beyond the winner's curse requires a
+joy-of-winning motive. Together with the format-invariant intercept $w/(1-\Lambda)$,
+this provides a small set of moments to separate the two motives.
+Section~\ref{sec:framework} presents the framework and discusses dimensionality.
+Section~\ref{sec:pv} and Section~\ref{sec:wallet} analyze the private-value auction
+and the wallet game. Section~\ref{sec:id} discusses identification and revenue.
+Section~\ref{sec:ext} sketches extensions. An appendix states the two-dimensional
+results for comparison.
+\section{Framework}
+\label{sec:framework}
+\subsection{Preferences over a single monetary dimension}
+Consumption is the net monetary payoff $\pi$. Following \citet{koszegiRabin2006},
+utility relative to reference payoff $r$ is
+\begin{equation}
+u(\pi\mid r)=\pi+\mu(\pi-r),
+\end{equation}
+where $\mu$ is piecewise linear,
+\begin{equation}
+\mu(x)=\begin{cases}\eta\,x & x\ge0,\\ \eta\lambda\,x & x<0,\end{cases}
+\qquad \lambda>1,\ \eta>0 .
+\end{equation}
+We set $\eta=1$ and write $\Lambda\equiv\eta(\lambda-1)>0$. The reference point is the
+distribution of consumption induced by the agent's own planned action (a personal
+equilibrium), and utility is the expectation of $u(\pi\mid r)$ over an independent
+draw $r$ from that distribution. Because $\mu$ is kinked at zero, reference
+dependence over a single dimension induces first-order risk aversion
+\citep{koszegiRabin2007}, which behaves like risk aversion in first-price auctions
+but is a distinct, reference-dependent primitive.
+\subsection{Dimensionality and induced values}
+\label{sec:dim}
+The standard auction application of these preferences
+\citep{langeRatan2010} separates the good ($k=1$) and money ($k=2$):
+$u(c\mid r)=\sum_k[m_k(c_k)+\mu(m_k(c_k)-m_k(r_k))]$. The good dimension contributes
+gain--loss when the bidder does not obtain the object, generating attachment. This
+requires $m_1$ to be a consumption dimension psychologically distinct from money.
+In an induced-value auction the object's value is a cash redemption value, so
+$m_1(v)=v$ is money and the two dimensions coincide. We therefore use the
+single-dimension formulation above throughout. A brief two-dimensional comparison is
+provided in Appendix~\ref{app:two}. Which dimensionality applies is ultimately an
+empirical question; the two models make distinct, testable predictions (see
+Section~\ref{sec:id}).
+\subsection{Joy of winning}
+A bidder who wins receives a direct utility bonus $w\ge0$, modeled additively as
+$w\cdot P$, where $P$ is the probability of winning. Being direct and
+reference-independent, this specification is valid under either dimensionality.
+\begin{remark}[Alternative specification]
+If instead $w$ entered the intrinsic value of the good and hence the reference
+point, gain--loss would partially offset it. All qualitative conclusions below are
+unchanged, with the joy-of-winning effect dampened; we therefore adopt the direct
+specification.
+\end{remark}
+\section{Private-Value First-Price Auction}
+\label{sec:pv}
+Two symmetric bidders have i.i.d.\ private values $v\sim U[0,1]$. In a symmetric,
+strictly increasing equilibrium a bid $b=\beta(P)$ wins with probability $P$. A
+bidder with value $v$ who plans such a bid obtains the net payoff $\pi=v-b$ with
+probability $P$ and $\pi=0$ otherwise. The reference is an independent draw from
+that same two-point distribution. For $v>b$, the gain--loss term is
+\begin{equation}
+\mathbb{E}[\mu(\pi-\pi')]=-\Lambda\,P(1-P)(v-b),
+\end{equation}
+so that, adding the joy of winning,
+\begin{equation}
+U(P;v)=P(v-b)\big[1-\Lambda(1-P)\big]+wP .
+\label{eq:pvobj}
+\end{equation}
+\begin{proposition}[Private-value first-price equilibrium, single dimension]
+\label{prop:pv}
+The unique symmetric, strictly increasing personal-equilibrium bidding strategy is
+\begin{equation}
+\boxed{\ \beta^{*}(v)=\frac{w+\tfrac{1-\Lambda}{2}\,v+\tfrac{2\Lambda}{3}\,v^{2}}
+{1-\Lambda+\Lambda v}\ }.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Substitute $b=\beta(P)$ in \eqref{eq:pvobj}. The first-order condition
+$\partial U/\partial P=0$ at $P=v$ gives
+\begin{equation}
+v(1-\Lambda+\Lambda v)\,\beta'(v)+\big[1-\Lambda+2\Lambda v\big]\beta(v)
+=(1-\Lambda)v+2\Lambda v^{2}+w .
+\end{equation}
+The left-hand side is $\frac{d}{dv}\big[\beta(v)\,v(1-\Lambda+\Lambda v)\big]$.
+Integrating and imposing that $\beta(v)\,v(1-\Lambda+\Lambda v)\to0$ as $v\to0$,
+\begin{equation}
+\beta(v)\,v(1-\Lambda+\Lambda v)=\tfrac{1-\Lambda}{2}v^{2}+\tfrac{2\Lambda}{3}v^{3}+wv,
+\end{equation}
+which rearranges to the stated expression.
+\end{proof}
+\begin{corollary}[Overbidding and the low-value intercept]
+\label{cor:pvover}
+Relative to the risk-neutral benchmark $\tfrac12 v$,
+\begin{equation}
+\beta^{*}(v)-\tfrac12 v=\frac{w+\tfrac{\Lambda}{6}v^{2}}{1-\Lambda+\Lambda v}\ \ge\ 0 ,
+\qquad
+\beta^{*}(0)=\frac{w}{1-\Lambda},\qquad \beta^{*}(1)=\tfrac12+\tfrac{\Lambda}{6}+w .
+\end{equation}
+For $w=0$, loss aversion alone already produces overbidding at every $v>0$.
+\end{corollary}
+\begin{proof}
+Immediate from Proposition~\ref{prop:pv}.
+\end{proof}
+\begin{remark}[Risk-neutral benchmark]
+For $\Lambda=0$, $\beta^{*}(v)=\tfrac12 v+w$, recovering the standard first-price
+benchmark $\tfrac12 v$ when $w=0$ and full pass-through of the joy-of-winning bonus.
+For $\Lambda>0$ the denominator $1-\Lambda+\Lambda v$ is less than one for $v<1$, so
+both channels are amplified relative to the linear case.
+\end{remark}
+\section{The First-Price Wallet Game}
+\label{sec:wallet}
+Two symmetric bidders receive private signals $X_i\sim U[0,1]$ i.i.d.\ and the
+common value is $V=X_1+X_2$ \citep{klemperer1998,milgromWeber1982}. In a symmetric,
+strictly increasing equilibrium a bid $b=\beta(P)$ wins with probability $P$, and
+conditional on winning the rival's signal is $Y\sim U[0,P]$. The net payoff is
+$\pi=x+Y-b$ with probability $P$ and $0$ otherwise. Compared with
+Section~\ref{sec:pv}, the common value adds within-winner uncertainty. Its
+gain--loss contribution is
+\begin{equation}
+\mathbb{E}[\mu(\pi-\pi')]=-\Lambda\Big[P(1-P)\Big(x+\tfrac{P}{2}-b\Big)+\tfrac{P^{3}}{6}\Big],
+\end{equation}
+using $\mathbb{E}[(Y-Y')^{+}]=P/6$ for $Y,Y'\sim U[0,P]$ i.i.d. Adding the joy of
+winning,
+\begin{equation}
+U(P;x)=P\Big(x+\tfrac{P}{2}-b\Big)\big[1-\Lambda(1-P)\big]-\tfrac{\Lambda P^{3}}{6}+wP .
+\label{eq:walletobj}
+\end{equation}
+\begin{proposition}[Wallet-game equilibrium, single dimension]
+\label{prop:wallet}
+The unique symmetric, strictly increasing personal-equilibrium bidding strategy is
+\begin{equation}
+\boxed{\ \beta^{*}(x)=\frac{w+(1-\Lambda)x+\Lambda x^{2}}{1-\Lambda+\Lambda x}\ }.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Substitute $b=\beta(P)$ in \eqref{eq:walletobj}. The first-order condition at $P=x$
+gives
+\begin{equation}
+x(1-\Lambda+\Lambda x)\,\beta'(x)+\big[1-\Lambda+2\Lambda x\big]\beta(x)
+=2x(1-\Lambda)+3\Lambda x^{2}+w .
+\end{equation}
+The left-hand side equals
+$\frac{d}{dx}\big[\beta(x)\,x(1-\Lambda+\Lambda x)\big]$. Integrating with
+$\beta(x)\,x(1-\Lambda+\Lambda x)\to0$ as $x\to0$,
+\begin{equation}
+\beta(x)\,x(1-\Lambda+\Lambda x)=(1-\Lambda)x^{2}+\Lambda x^{3}+wx,
+\end{equation}
+which rearranges to the stated expression.
+\end{proof}
+\begin{corollary}[No loss-aversion distortion; joy of winning overbids]
+\label{cor:wallet}
+For all $x\in[0,1]$,
+\begin{equation}
+\beta^{*}(x)-x=\frac{w}{1-\Lambda+\Lambda x}\ \ge\ 0 ,
+\qquad
+\beta^{*}(0)=\frac{w}{1-\Lambda},\qquad \beta^{*}(1)=1+w .
+\end{equation}
+In particular, if $w=0$ then $\beta^{*}(x)=x$ exactly: with a single monetary
+dimension, loss aversion does \emph{not} distort the wallet-game equilibrium. If
+$w>0$, the bid exceeds $x$ uniformly.
+\end{corollary}
+\begin{proof}
+Immediate from Proposition~\ref{prop:wallet}.
+\end{proof}
+\begin{remark}[Interpretation]
+The winner's curse makes the common value random conditional on winning; the
+gain--loss terms in \eqref{eq:walletobj} then cancel at the margin and the
+risk-neutral bid $\beta_0(x)=x$ survives. Thus loss aversion can rationalize
+private-value overbidding but not, by itself, common-value overbidding. The latter
+requires the joy-of-winning motive (or a non-reference mechanism such as cursedness
+or bounded rationality).
+\end{remark}
+\section{Identification and Revenue}
+\label{sec:id}
+The single-dimension model yields three testable implications.
+\begin{itemize}
+\item \textbf{Private-value overbidding under pure loss aversion.} By
+Corollary~\ref{cor:pvover}, $\beta^*(v)>\tfrac12 v$ for all $v>0$ even when $w=0$.
+The local slope of the bid function identifies $\Lambda$.
+\item \textbf{Common-value overbidding requires a joy of winning.} By
+Corollary~\ref{cor:wallet}, the wallet-game bid equals $x$ exactly when $w=0$ and
+exceeds $x$ uniformly when $w>0$. Hence any \emph{excess} common-value overbidding
+(beyond the winner's curse) identifies $w>0$.
+\item \textbf{Format-invariant intercept.} $\beta^*(0)=w/(1-\Lambda)$ in both
+formats. A strictly positive low-value bid, replicated across formats, isolates the
+joy-of-winning component, which pure loss aversion cannot generate.
+\end{itemize}
+These implications also discriminate against the two-dimensional model, whose sign
+pattern is different (Appendix~\ref{app:two}).
+Expected revenue in the private-value auction is
+$R=2\int_0^1 x\,\beta^*(x)\,dx$, which is strictly increasing in $w$; the
+wallet-game revenue is defined analogously from the first-order statistic of the two
+signals. Because the joy-of-winning bonus shifts bids up while loss aversion
+operates differently across formats, cross-format revenue comparisons inherit the
+identification asymmetry above.
+\section{Extensions}
+\label{sec:ext}
+\paragraph{Second-price auctions.}
+With a second-price rule the payment equals the rival's bid and is random
+conditional on winning, so the money dimension contributes a term involving the
+within-dimension price variance. The joy-of-winning term adds $wP$ as before, so the
+same motive drives overbidding; the risk-neutral truth-telling benchmark
+$\beta_0(x)=v$ generally fails.
+\paragraph{General signal distributions and $n$ bidders.}
+For $X_i\sim F$ on $[0,1]$ and $V=\alpha(X_1+X_2)$, the problem is homogeneous in
+$(\alpha,b)$ and the equilibrium scales by $\alpha$. With $n$ bidders and
+$V=\sum_{i=1}^{n}X_i$, the win probability becomes $P^{\,n-1}$ and the dispersion
+term scales accordingly; the same integrating-factor method applies.
+\paragraph{Toward structural estimation.}
+Embedding $(w,\Lambda)$ in a structural estimator that also allows for noisy bidding
+\citep{goeree2002} or cursedness \citep{eysterRabin2005} would let researchers
+quantify the relative contributions of joy of winning, loss aversion, and bounded
+rationality. The single-dimension baseline is the appropriate starting point for
+induced-value data.
+\appendix
+\section{Two-Dimensional Comparison}
+\label{app:two}
+For completeness we record the multi-dimensional (good, money) results of the
+private-value first-price auction and the wallet game, which require the good to be
+a separate consumption dimension.
+\begin{itemize}
+\item \emph{Private-value FPA:}
+\begin{equation}
+\beta^{*}_{2}(v)=\frac{w+\tfrac{1-\Lambda}{2}v+\tfrac{2\Lambda}{3}v^{2}}{1+\Lambda(1-v)},
+\qquad
+\beta^{*}_{2}(v)-\tfrac12 v=\frac{w-\Lambda v+\tfrac{7\Lambda}{6}v^{2}}{1+\Lambda(1-v)} .
+\end{equation}
+With $w=0$, the equilibrium \emph{underbids} for $v<6/7$ and overbids for $v>6/7$;
+global overbidding requires $w\ge3\Lambda/14$.
+\item \emph{Wallet game:}
+\begin{equation}
+\beta^{*}_{2}(x)=\frac{w+(1-\Lambda)x+\Lambda x^{2}}{1+\Lambda(1-x)},
+\qquad
+\beta^{*}_{2}(x)-x=\frac{w-2\Lambda x(1-x)}{1+\Lambda(1-x)} .
+\end{equation}
+With $w=0$, the equilibrium \emph{underbids} uniformly; global overbidding requires
+$w\ge\Lambda/2$.
+\end{itemize}
+The denominators ($1+\Lambda(1-v)$, $1+\Lambda(1-x)$) differ from the single-dimension
+denominators ($1-\Lambda+\Lambda v$, $1-\Lambda+\Lambda x$), and the sign of the
+pure-loss-aversion effect reverses. The two specifications can thus be distinguished
+empirically by the behavior of bids at low valuations: single-dimension predicts
+overbidding near $v=0$, two-dimension predicts underbidding.
+\begin{thebibliography}{99}
+\bibitem[Banerji and Gupta(2014)]{banerji2014}
+Banerji, A., and N. Gupta (2014): ``Detection, Identification, and Estimation of
+Loss Aversion: Evidence from an Auction Experiment,'' \emph{American Economic
+Journal: Microeconomics}, 6(1), 91--133.
+\bibitem[Cox, Roberson, and Smith(1982)]{cox1982}
+Cox, J. C., B. Roberson, and V. L. Smith (1982): ``Theory and Behavior of Single
+Object Auctions,'' \emph{Research in Experimental Economics}, 2, 1--43.
+\bibitem[Cox, Smith, and Walker(1988)]{coxSmithWalker1988}
+Cox, J. C., V. L. Smith, and J. M. Walker (1988): ``Theory and Individual Behavior
+of First-Price Auctions,'' \emph{Journal of Risk and Uncertainty}, 1(1), 61--99.
+\bibitem[Crawford and Iriberri(2007)]{crawfordIriberri2007}
+Crawford, V. P., and N. Iriberri (2007): ``Level-$k$ Auctions: Can a Nonequilibrium
+Model of Strategic Thinking Explain the Winner's Curse and Overbidding in
+Private-Value Auctions?,'' \emph{Econometrica}, 75(6), 1721--1770.
+\bibitem[Delgado et al.(2008)]{delgado2008}
+Delgado, M. R., A. Schotter, E. Y. Ozbay, and E. A. Phelps (2008): ``Understanding
+Overbidding: Using the Neural Circuitry of Reward to Design Economic Auctions,''
+\emph{Science}, 321(5897), 1849--1852.
+\bibitem[Engelbrecht-Wiggans(1989)]{engelbrechtWiggans1989}
+Engelbrecht-Wiggans, R. (1989): ``The Effect of Regret on Optimal Bidding in
+Auctions,'' \emph{Management Science}, 35(6), 685--692.
+\bibitem[Eyster and Rabin(2005)]{eysterRabin2005}
+Eyster, E., and M. Rabin (2005): ``Cursed Equilibrium,'' \emph{Econometrica}, 73(5),
+1623--1672.
+\bibitem[Filiz-Ozbay and Ozbay(2007)]{filizOzbay2007}
+Filiz-Ozbay, E., and E. Y. Ozbay (2007): ``Auctions with Anticipated Regret: Theory
+and Experiment,'' \emph{American Economic Review}, 97(4), 1407--1418.
+\bibitem[Goeree, Holt, and Palfrey(2002)]{goeree2002}
+Goeree, J. K., C. A. Holt, and T. R. Palfrey (2002): ``Quantal Response Equilibrium
+and Overbidding in Private-Value Auctions,'' \emph{Journal of Economic Theory},
+104(1), 247--272.
+\bibitem[Kagel and Levin(1986)]{kagelLevin1986}
+Kagel, J. H., and D. Levin (1986): ``The Winner's Curse and Public Information in
+Common Value Auctions,'' \emph{American Economic Review}, 76(5), 894--920.
+\bibitem[Klemperer(1998)]{klemperer1998}
+Klemperer, P. (1998): ``Auctions with Almost Common Values: The `Wallet Game' and
+its Applications,'' \emph{European Economic Review}, 42(3--5), 757--769.
+\bibitem[K\H{o}szegi and Rabin(2006)]{koszegiRabin2006}
+K\H{o}szegi, B., and M. Rabin (2006): ``A Model of Reference-Dependent
+Preferences,'' \emph{Quarterly Journal of Economics}, 121(4), 1133--1165.
+\bibitem[K\H{o}szegi and Rabin(2007)]{koszegiRabin2007}
+K\H{o}szegi, B., and M. Rabin (2007): ``Reference-Dependent Risk Attitudes,''
+\emph{American Economic Review}, 97(4), 1047--1073.
+\bibitem[Lange and Ratan(2010)]{langeRatan2010}
+Lange, A., and A. Ratan (2010): ``Multi-Dimensional Reference-Dependent Preferences
+in Sealed-Bid Auctions---How (Most) Laboratory Experiments Differ from the Field,''
+\emph{Games and Economic Behavior}, 68(2), 634--645.
+\bibitem[Milgrom and Weber(1982)]{milgromWeber1982}
+Milgrom, P. R., and R. J. Weber (1982): ``A Theory of Auctions and Competitive
+Bidding,'' \emph{Econometrica}, 50(5), 1089--1122.
+\end{thebibliography}
+\end{document}
+
+
+
+
+
